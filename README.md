@@ -41,7 +41,7 @@ Notice you can specify an array of ranges in case you have multiple distinct ran
 
 Conversely, if you want to extract less edits remove IP ranges you're not interested in. This will speed up the following steps as there'll be less data to process.
 
-**2.** Create a new directory somewhere and copy the `wikiwho-jar-with-dependencies.jar` from the `target` folder. This will be the base directory from now on. For convenience, you can rename the JAR as `wikiwho.jar`.
+**2.** Move the `wikiwho-jar-with-dependencies.jar` file from the `target` folder to the repo root and rename it as `wikiwho.jar`.
 
 **3.** Download the latest Wikipedia `stub-meta-history` dump: https://dumps.wikimedia.org/enwiki/latest/enwiki-latest-stub-meta-history.xml.gz
 
@@ -69,7 +69,7 @@ This step can take several hours. When the process is done you can `wc -l` to ch
 
 **6.** If an empty `data/index` directory isn't already present (it should've been created by the previous steps), create it. Then run `java -jar wikiwho.jar -l data/index`. This will build the Lucene index from the data in MongoDB and it should be relatively fast, at least compared to the previous steps.
 
-It's now possible to start the web server. Create `config` directory where the runnable JAR is located and a `server.conf` file in it. Set the following properties inside the file:
+It's now possible to start the web server. There exists a `config/server.conf` file where you can set the server port (default 8080):
 
 ```
 server.port = $PORT  # Port the web server is listening on

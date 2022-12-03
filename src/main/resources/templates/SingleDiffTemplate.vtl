@@ -1,0 +1,39 @@
+#set ($class = " class='diff-content'")
+#if ($_visible)
+	#set ($class = "")
+#end
+
+<div class="row">
+	<div class="col-xl">
+		<div $class id="$diff.getId()-html">
+			<div class="diff-header">
+				<div class="diff-title">
+					<h2 class="medium">Edit on page <a href="/page/$diff.getToId()" class="badge badge-static">$diff.getToTitle()</a> 
+					by <a href="/organization/$diff.getOrganization().getId()" class="badge badge-static">$diff.getOrganization().getName()</a>
+					</h2>
+					<br/>
+					
+					<div class="diff-actions">
+						#if (!$_visible)
+							<a href="/diff/$diff.getId()" class="btn btn-sm btn-info"><i class="fas fa-link"></i> Permalink</a>
+						#end
+						<a title="Upvote this edit" data-id="$diff.getId()" class="vote-diff btn btn-sm btn-info"><i class="fas fa-arrow-alt-circle-up"></i> Upvote</a>
+						
+						<a target="_blank" class="btn btn-sm btn-info " href="$diff.getWikipediaURL()">
+							See on Wikipedia <i class="fas fa-external-link-alt"></i>
+						</a>
+						<a target="_blank" class="btn btn-sm btn-info" href="https://ipinfo.io/$diff.getIp()">$diff.getIp()
+						<i class="fas fa-external-link-alt"></i></a>
+					</div>
+					
+					<hr style="width: 80%"/>
+				</div>
+			</div>
+			<div class="responsive-table">
+				<table class="diff-table">
+					$diff.getDiffHtml()
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

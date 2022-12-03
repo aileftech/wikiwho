@@ -1,0 +1,69 @@
+#set ($title = "Wikipedia Analysis Tool &mdash; Edits ")
+#if ($diffs.getOrganization())
+	#set ($title = "$title by $diffs.getOrganization().getName()")
+#end
+#if ($diffs.getPage())
+	#set ($title = "$title on page $diffs.getPage().getTitle()")
+#end
+#if ($diffs.getMonth())
+	#set ($title = "$title in $diffs.getMonthReadable()")
+#end
+
+#parse ( "templates/HeaderTemplate.vtl" )
+	<div class="main-container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card">
+					<h2>
+					Edits
+						#if ( $diffs.getOrganization() )
+							 by <span class="badge  badge-static">
+							<a href="/organization/$diffs.getOrganization().getId()">$diffs.getOrganization().getName()
+							</a></span>
+						#end
+					
+						#if ( $diffs.getPage() )
+							on page <span class="badge badge-static">
+							<a href="/page/$diffs.getPage().getId()">$diffs.getPage().getTitle()
+							</a></span>
+						#end
+						
+						#if ( $diffs.getMonth() )
+							in <span class="badge badge-static">$diffs.getMonthReadable()</span>
+						#end
+					</h2>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-xl-5">
+				<div class="card">
+					<div class="card-content bordered">
+						<h3>History of edits</h3>
+						#set ( $_diffs = $diffs )
+						#parse ( "templates/DiffsSelectTableTemplate.vtl" )
+						
+					</div> 
+				</div>	
+			</div>
+		
+			<div class="col-xl-7">
+				<div class="card">
+					<div class="card-content bordered">
+						<div id="current-diff">
+							<div class="diff-placeholder">
+								<h3>Diff comparison</h3>
+								Select an edit from the table to see its diff.
+							</div>
+							#foreach ( $diff in $diffs.getDiffs() )
+								#parse ( "templates/SingleDiffTemplate.vtl" )
+							#end
+						</div>
+					</div>
+				</div> 
+			</div>
+		</div>
+	</div>
+
+#parse ( "templates/FooterTemplate.vtl" )

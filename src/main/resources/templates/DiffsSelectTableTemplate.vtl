@@ -1,0 +1,126 @@
+<p>Click on a row to see its diff.</p>
+<div class="table-responsive">
+<table class="table table-striped">
+	<tr>
+		<th>Page title</th>
+		<th>Organization</th>
+		<th>Date</th>
+		<!-- <th>IP address</th> -->
+		<th>Contribution</th>
+	</tr>
+	#foreach ( $diff in $_diffs.getDiffs() )
+		<tr class="diff-row" data-id="$diff.getId()">
+			<td>$diff.getToTitle()</td>
+			<td>$diff.getOrganization().getName()</td>
+			<td>$diff.getReadableDate()</td>
+			<!-- <td>$diff.getIp()</td> -->
+			<td>
+				#if ($diff.getDiffSize() < 0)
+					<span class="negative-diff">
+						$diff.getDiffSize()
+					</span>
+				#elseif ($diff.getDiffSize() > 0)
+					<span class="positive-diff">
+						+$diff.getDiffSize()
+					</span>
+				#else
+					<span class="neutral-diff">0</span>
+				#end
+			</td>
+		</tr>
+	#end
+</table>
+</div>
+<div class="text-center">
+	<ul class="pagination justify-content-center">
+		#if ($_diffs.getPagination().getRangeLow() > 0)
+			#set ($p = 0)
+			#set ( $params = "" )
+			#if ( $_diffs.getPage() )
+				#set ( $params = "pageid=$_diffs.getPage().getId()" )
+			#end
+			#if ( $_diffs.getMonth() )
+				#set ( $params = "$params&month=$_diffs.getMonth()" )
+			#end
+			
+			#set ($displayP = "&laquo; First")
+			#if ($_diffs.getOrganization())
+		    	<li class="page-item"><a class="page-link" href="/diffs/$_diffs.getOrganization().getId()/$p?$params">$displayP</a></li>
+		    #else
+		    	#if ($search)
+		    		#set ($options = "")
+		    		#if ($search.isSearchAdded())
+		    			#set ($options = "$options&searchAdded=on")
+		    		#end
+		    		#if ($search.isSearchRemoved())
+		    			#set ($options = "$options&searchRemoved=on")
+		    		#end
+		    		<li class="page-item"><a class="page-link" href="/search?query=$search.getHTMLEscapedQuery()&page=$p$options">$displayP</a></li>
+		    	#else
+		    		<li class="page-item"><a class="page-link" href="/page/$_diffs.getPage().getId()/diffs/$p">$displayP</a></li>
+		    	#end	
+		    	
+		    #end
+		#end
+	
+		#foreach ( $p in [$_diffs.getPagination().getRangeLow()..$_diffs.getPagination().getRangeHigh()] )
+			#set ( $params = "" )
+			#if ( $_diffs.getPage() )
+				#set ( $params = "pageid=$_diffs.getPage().getId()" )
+			#end
+			#if ( $_diffs.getMonth() )
+				#set ( $params = "$params&month=$_diffs.getMonth()" )
+			#end
+			
+			#set ($displayP = $p + 1)
+			#if ($_diffs.getOrganization())
+		    	<li class="page-item"><a class="page-link" href="/diffs/$_diffs.getOrganization().getId()/$p?$params">$displayP</a></li>
+		    #else
+		    	#if ($search)
+		    		#set ($options = "")
+		    		#if ($search.isSearchAdded())
+		    			#set ($options = "$options&searchAdded=on")
+		    		#end
+		    		#if ($search.isSearchRemoved())
+		    			#set ($options = "$options&searchRemoved=on")
+		    		#end
+		    		<li class="page-item"><a class="page-link" href="/search?query=$search.getHTMLEscapedQuery()&page=$p$options">$displayP</a></li>
+		    	#else
+		    		<li class="page-item"><a class="page-link" href="/page/$_diffs.getPage().getId()/diffs/$p">$displayP</a></li>
+		    	#end	
+		    	
+		    #end
+		#end
+		
+		#if ($_diffs.getPagination().getRangeHigh() != $_diffs.getPagination().getMaxPage() - 1 )
+			#set ($p = $_diffs.getPagination().getMaxPage() - 1)
+			#set ( $params = "" )
+			#if ( $_diffs.getPage() )
+				#set ( $params = "pageid=$_diffs.getPage().getId()" )
+			#end
+			#if ( $_diffs.getMonth() )
+				#set ( $params = "$params&month=$_diffs.getMonth()" )
+			#end
+			
+			#set ($displayP = "Last &raquo;")
+			#if ($_diffs.getOrganization())
+		    	<li class="page-item"><a class="page-link" href="/diffs/$_diffs.getOrganization().getId()/$p?$params">$displayP</a></li>
+		    #else
+		    	#if ($search)
+		    		#set ($options = "")
+		    		#if ($search.isSearchAdded())
+		    			#set ($options = "$options&searchAdded=on")
+		    		#end
+		    		#if ($search.isSearchRemoved())
+		    			#set ($options = "$options&searchRemoved=on")
+		    		#end
+		    		<li class="page-item"><a class="page-link" href="/search?query=$search.getHTMLEscapedQuery()&page=$p$options">$displayP</a></li>
+		    	#else
+		    		<li class="page-item"><a class="page-link" href="/page/$_diffs.getPage().getId()/diffs/$p">$displayP</a></li>
+		    	#end	
+		    	
+		    #end
+	    #end
+		
+	</ul>
+</div>

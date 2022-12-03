@@ -1,0 +1,160 @@
+#parse ( "templates/HeaderTemplate.vtl" )
+	<script>
+		var labels = $report.getJsonLabels();
+		var data = $report.getJsonData();
+	
+		window.chartColors = {
+			red: 'rgb(255, 99, 132)',
+			orange: 'rgb(255, 159, 64)',
+			yellow: 'rgb(255, 205, 86)',
+			green: 'rgb(75, 192, 192)',
+			blue: 'rgb(54, 162, 235)',
+			purple: 'rgb(153, 102, 255)',
+			grey: 'rgb(201, 203, 207)'
+		};
+		
+		var config = {
+			type: 'bar',
+			data: {
+				labels: labels,
+				datasets: [{
+					label: '# of edits per month on page $report.getPage().getEscapedTitle()',
+					backgroundColor: window.chartColors.red,
+					borderColor: window.chartColors.red,
+					data: data,
+					fill: false,
+				}]
+			},
+			options: {
+				responsive: true,
+				title: {
+					display: true,
+					text: ''
+				},
+				tooltips: {
+					mode: 'index',
+					intersect: false,
+				},
+				hover: {
+					mode: 'nearest',
+					intersect: true
+				},
+				scales: {
+					xAxes: [{
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: 'month/year'
+						}
+					}],
+					yAxes: [{
+						display: true,
+						scaleLabel: {
+							display: true,
+							labelString: '# of edits'
+						},
+						ticks: {
+							suggestedMin: 0,
+							suggestedMax: 50
+						}
+					}]
+				}
+			}
+		};
+
+		window.onload = function() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+			window.myLine = new Chart(ctx, config);
+			
+			var canvas = document.getElementById('canvas');
+
+			/*			
+			canvas.onclick = function(evt) {
+	          var activePoints = myLine.getElementsAtEvent(evt);
+	          
+	          console.log(activePoints);
+	          var chartData = activePoints[0]['_chart'].config.data;
+	          var idx = activePoints[0]['_index'];
+	
+	          var label = chartData.labels[idx];
+	          var value = chartData.datasets[0].data[idx];
+	
+	          window.location.href = "/diffs/$report.getOrganization().getId()?month=" + label;
+	        };*/
+		};
+	</script>
+	<div class="main-container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h2><span class="badge badge-static">WIKIPEDIA PAGE</span> $report.getPage().getTitle()</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-3 card">
+				<div class="card-content bordered">
+					<h2><i class="far  fa-building"></i> Edited by $report.getOrganizations().size() organizations</h2>
+				</div>
+			</div>
+			<div class="col-lg-3 card">
+				<div class="card-content bordered">
+					<h2><i class="far  fa-edit"></i> $report.getEditCount() edits
+					<a href="/page/$report.getPage().getId()/diffs" class="btn btn-sm btn-info">
+					  See all
+					</a>
+					</h2>
+				</div>
+			</div>
+			<div class="col-lg-3 card">
+				<div class="card-content bordered">
+					<h2 style="display: inline;"><i class="fas fa-desktop"></i> $report.getIps().size() IP addresses 
+						<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ip-modal">
+						  See all
+						</button>
+					</h2>
+
+					#set ($_modalIps = $report.getIps() )
+					#parse ( "templates/IpModalTemplate.vtl" )
+					
+				</div>
+			</div>
+			
+			<div class="col-lg-3 card">
+				<div class="card-content bordered">
+					<h2><i class="far  fa-clock"></i> Last edit: $report.getLastEdit()</h2>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-xl-4">
+				<div class="card">
+					<div class="card-content bordered">
+						<h3>Most active organizations</h3>
+						
+						<table class="table table-striped">
+							<tr>
+								<th>Organization</th>
+								<th># of edits</th>
+							</tr>
+							#foreach ( $org in $report.getOrganizations() )
+								<tr>
+									<td><a href="/diffs/$org.getOrganization().getId()?pageid=$report.getPage().getId()">$org.getOrganization().getName()</a></td>
+									<td>$org.getCount()</td>
+								</tr>
+							#end
+						</table>
+					</div> 
+				</div>	
+			</div>
+			<div class="col-xl-8">
+				<div class="card" id="plot-card">
+					<div class="card-content bordered">
+						<h3>History of edits</h3>
+						<canvas id="canvas"></canvas>
+					</div>
+				</div> 
+			</div>
+		</div>
+	</div>
+
+#parse ( "templates/FooterTemplate.vtl" )

@@ -1,0 +1,182 @@
+#parse ( "templates/HeaderTemplate.vtl" )
+	<div class="main-container">
+		<div class="row">
+			<div class="col-lg">
+				<h1>Wikiwho</h1>
+			</div>
+		</div>
+	
+		<div class="row">
+			<div class="col-lg-8 card">
+				<div class="card-content bordered">
+					<h3>
+						Overview
+					</h3>
+					<p>
+						This is a tool to navigate edits to the English Wikipedia made by IPs belonging to known organizations. 
+						You can read more about how this works <a href="/about.html">on the about page</a>.
+					</p>
+					<p>
+						On this page you can see a summary of the most active organizations and most edited pages. You can get started by:
+						<ul>
+						<li>looking up a specific organization, for example the <a href="/organization/a71d9df00b1454331e31c41a4c22084b">United Nations</a>, 
+						the <a href="/organization/5c2930587ca3d086385e35fe42e66165">US Senate</a> or 
+						<a href="/organization/b0976eda5b3e10e0ad9dfd0af1bace8e">NASA</a>;</li>
+						<li>looking up all edits to a specific page, for example <a href="/page/765">Abortion</a> or <a href="/page/26678">Star Wars</a>;</li>
+						<li>using the <a href="/search">search functionality</a> to look for specific words that have been added or removed;</li>
+						</ul>
+						You can also upvote interesting edits that you find. The most voted ones are currently shown on the home page.
+					</p>
+					
+					<p><strong>Disclaimer:</strong> We do not provide any guarantee about the accuracy of the information provided on this website. This information has
+					been collected automatically and has not been verified. We decline any responsibility regarding the way you use this information.</p>
+				</div>
+			</div>
+			<div class="col-lg-4 card">
+				<div class="card-content bordered">
+					<h3>Latest changes</h3>
+					<span class="badge badge-success align-middle">NEW</span> Nov 2022 &ndash; <span class="align-middle">
+						Updated with Wikipedia edits up to Nov 2022.
+					</span>
+					
+					<hr/>
+					<p>
+					 <span class="align-middle"> 23 Apr 2020</span><br/>
+					<ul>
+						<li>Updated to the latest Wikipedia dump (20 April 2020)</li>
+						<li>Added several IP ranges for new organizations (+86 organizations, +12k edits, +5k pages)</li>
+						<li>Improved suggestions when searching for a specific page/organization</li>
+					</ul>
+					</p> 
+					<hr/>
+					<p>19 Apr 2020 &ndash; <span class="badge badge-info align-middle">BETA</span> 
+					<span class="align-middle"> Add a <code>format=json</code> GET parameter to any page to get a machine-readable JSON output 
+					(this is still experimental and may not work on all pages)! </span></p>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg">
+				<div class="card">
+					<div class="card-content bordered">
+						<h3>Search</h3>
+						<p>
+							Search for a specific organization:
+						</p>
+						<input class="form-control" type="text" id="autocomplete">
+						<hr/>
+						<p>
+							Search for a specific Wikipedia page:
+						</p>
+						<input class="form-control" type="text" id="autocomplete-page">
+					</div> 
+				</div>	
+				
+				<div class="card">
+					<div class="card-content bordered">
+						<h3>Summary</h3>
+						<p>
+							This table shows an overall summary of statistics computed from the edit activity.
+						</p>
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<tr>
+									<th></th>
+									<th>Value</th>
+								</tr>
+								<tr>
+									<th># of edits</th>
+									<td>$report.getReport().getStats().getNumEdits()</td>
+								</tr>
+								<tr>
+									<th># of organizations</th>
+									<td>$report.getReport().getStats().getNumOrganizations()</td>
+								</tr>
+								<tr>
+									<th># of edited pages</th>
+									<td>$report.getReport().getStats().getNumPages()</td>
+								</tr>
+							</table>
+						</div>
+					</div> 
+				</div>
+				
+				<div class="card">
+					<div class="card-content bordered">
+						<h3>Most voted edits</h3>
+						<p>
+							Edits that have been upvoted by our users.
+						</p>
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<tr>
+									<th></th>
+									<th>Page</th>
+									<th>Organization</th>
+									<th>Date</th>
+									<th></th>
+								</tr>
+								#foreach ($diff in $report.getDiffs())
+									<tr>
+										<td><span style="background-color: #89ce94;" class="badge"><i class="fas fa-arrow-up"></i> $diff.getVotes()</span></td> 
+										<td>$diff.getToTitle()</td>
+										<td>$diff.getOrganization().getName()</td>
+										<td class="date">$diff.getReadableDate()</td>
+										<td><a href="/diff/$diff.getId()" class="btn btn-sm btn-info">Open</a></td>
+									</tr>
+								#end
+							</table>
+						</div>
+					</div> 
+				</div>
+			</div>
+			
+			<div class="col-lg">
+				<div class="card">
+					<div class="card-content bordered">
+						<h3>Most active organizations</h3>
+						<p>Organizations that have made the most number of edits in total.</p>
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<tr>
+									<th>Organization</th>
+									<th># of edits</th>
+								</tr>
+								#foreach ( $org in $report.getReport().getOrganizations() )
+									<tr>
+										<td><a href="/organization/$org.getOrganization().getId()">$org.getOrganization().getName()</a></td>
+										<td>$org.getCount()</td>
+									</td>
+								#end
+							</table>
+						</div>
+					</div> 
+				</div>	
+			</div>
+		
+			<div class="col-lg">
+				<div class="card">
+					<div class="card-content bordered">
+						<h3>Most edited pages</h3>
+						<p>Pages that have received the most number of edits in total.</p>
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<tr>
+									<th>Page</th>
+									<th># of edits</th>
+								</tr>
+								#foreach ( $page in $report.getReport().getPages() )
+								<tr>
+									<td><a href="/page/$page.getPage().getId()">$page.getPage().getTitle()</a></td>
+									<td>$page.getEditCount()</td>
+								</td>
+								#end
+							</table>
+						</div>
+					</div>
+				</div> 
+			</div>
+		</div>
+	</div>
+#parse ( "templates/FooterTemplate.vtl" )

@@ -1,0 +1,79 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Wikipedia Analysis Tool &mdash; About</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<link rel="stylesheet" href="/main.css">
+		
+		<link rel="stylesheet" href="/fa/css/fontawesome.min.css">
+		<link rel="stylesheet" href="/fa/css/regular.min.css">
+		<link rel="stylesheet" href="/fa/css/solid.min.css">
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+		<script src="/jquery-ui.min.js"></script>
+		<link rel="stylesheet" href="/jquery-ui.min.css">
+		<link rel="stylesheet" href="/jquery-ui.theme.min.css">
+		<link rel="stylesheet" href="/jquery-ui.structure.min.css">
+		<script src="/main.js"></script>
+		<script src="/autocomplete.js"></script>
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		  <a class="navbar-brand" href="/">Home</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item">
+		        <a class="nav-link" href="/search">Full text search</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="/about.html">About/FAQ</a>
+		      </li>
+		    </ul>
+		  </div>
+		</nav>	
+		<div class="container-fluid">
+			<div class="main-container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card">
+							<div class="card-content bordered" style="padding-left: 20px; padding-right: 20px;">
+								<h1>
+									About this tool
+								</h1>
+								<p>
+									When somebody edits Wikipedia without being logged in, his IP address is saved in the edit history. The complete Wikipedia edit history is available for download, and since IP addresses can reveal information about their ownership, it is possible to link these Wikipedia edits to organizations whose IP range is known to the public.
+								</p>
+								<p>
+									We have collected information about IP ranges of organizations, government agencies and companies, and have identified all the edits made by known organizations. This tool allows to navigate the output of this analysis, by providing a <a href="/search">full text search</a> functionality, complete edit history for each detected organization and filtering features.
+								</p>
+								<p>You can read more on how this tool was implemented <a target="_blank" href="https://ailef.tech/2020/04/18/discovering-wikipedia-edits-made-by-institutions-companies-and-government-agencies/">here</a>. If you want to get in touch
+								you can contact me at aileftechblog [at] gmail [dot] com or on Twitter <a target="_blank" href="https://twitter.com/aileftech">@aileftech</a>.</p>
+								<p>
+									<strong>Any information that you find with this tool must be independently verified.</strong> The mapping between IP ranges and organizations has been compiled from multiple sources and has not been manually verified so it is certain that it contains inaccuracies.
+								</p>
+								<hr/>
+								<center><h1>FAQ</h1></center>
+								<h1>Is this updated in real time?</h1>
+								<p>No. This version was last updated on 20 April 2020.</p>
+
+								<h1>Is there an API?</h1>
+								<p>Every page responds with a structured JSON output if a GET parameter <tt>format=json</tt> is added to the request. You are free to use this however you want but keep in mind that this functionality is not stable and the output may change at any time (also, it may not work with all pages).</p>
+
+								<h1>How do I get in contact?</h1>
+								<p>
+									If you want to get in contact drop a line at: aileftechblog [at] gmail [dot] com.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

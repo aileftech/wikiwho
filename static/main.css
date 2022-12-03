@@ -1,0 +1,280 @@
+html {
+  position: relative;
+  min-height: 100%;
+  font-size: 16px;
+}
+
+
+body {
+  margin-bottom: 60px; /* Margin bottom by footer height */
+  background-color: #f8f8f8;
+}
+
+.footer {
+  padding-top: 10px;
+  color: #DCDCDC;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px; /* Set the fixed height of the footer here */
+  background-color: #333;
+}
+
+footer a {
+	color: white;
+}
+
+footer a:hover {
+	color: white;
+}
+
+div.main-container {
+	padding: 40px;
+}
+
+.card {
+	border: none;
+	margin-top: 20px;
+	margin-bottom: 5px;
+	background-color: transparent;
+}
+
+.card.full-text p {
+	margin-top: 20px;
+	/*font-size: 1.2rem;*/
+}
+
+.card hr {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.card h2 {
+	margin: 0px;
+	font-size: 1.5rem;
+}
+
+.card h2.medium {
+	font-size: 1.5rem;
+}
+
+.card .card-content {
+	padding: 15px;
+	background-color: white;
+}
+
+.card .card-content.bordered {
+	border: 1px solid #DDD;
+	border-radius: 10px;
+}
+
+.card-content h3 {
+	text-transform: uppercase;
+	margin-bottom: 20px;
+	font-family: Arial;
+	color: #555;
+	font-size: 1.2rem;
+}
+
+.card h2 i.fas, i.far {
+	color: #666;
+	margin-right: 10px !important;
+}
+
+.diff-row {
+	cursor: pointer;
+}
+
+.diff-row-active {
+	background-color: #c8eee9 !important;
+}
+
+.diff-content {
+	display: none;
+}
+
+.diff-lineno {
+	font-weight: bold;
+}
+
+.diff-table {
+	border-collapse: separate;
+	border-spacing: 20px;
+	width: 100%;
+}
+
+.diff-table td {
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.diff-table td.diff-context {
+	border: 3px solid #DDD;
+	color: #666;
+}
+
+.diff-table td.diff-deletedline {
+	border: 3px solid #fa7d82;
+}
+
+.diff-table td.diff-addedline {
+	border: 3px solid #88cc9f;
+}
+
+.diff-deletedline .diffchange {
+	background-color: #fdc7c9;
+}
+
+.diff-marker {
+	font-family: monospace;
+	/*font-size: 1.2rem;*/
+}
+
+.diff-addedline .diffchange {
+	background-color: #bbe1c8;
+}
+
+.negative-diff {
+	color: #aa405b;	
+}
+
+.positive-diff {
+	color: #59893b;
+}
+
+.neutral-diff {
+	color: #999;
+}
+
+.diff-header {
+}
+
+.diff-info {
+	margin-top: 10px;
+	color: #444;
+}
+
+table {
+	font-size: 1rem;
+}
+
+.badge-static {
+	background-color: #c0d8e0;
+}
+
+.badge-static a, a.badge-static {
+	color: #333;
+	white-space: normal;
+	text-align: left !important;
+}
+
+.badge-static a:hover {
+	text-decoration: none;
+}
+
+.btn-info-secondary {
+	background-color: #2e4e61;
+	color: #FFF;
+}
+
+.btn-info-secondary:hover {
+	background-color: #2e4e61;
+	color: #FFF;
+}
+
+.badge-info a {
+	color: #FFF;
+	font-weight: normal !important;
+	/*font-size: 1.1rem;*/
+}
+
+.badge-info a:hover {
+	text-decoration: none;
+}
+
+.vote-diff i {
+	cursor: pointer;
+}
+
+.vote-diff {
+	color: #FFF !important;
+}
+
+.ui-autocomplete-loading {
+	background: white url("loader.gif") right center no-repeat;
+}
+
+tt {
+	background-color: #F0F0F0;
+	border: 0px;
+	border-radius: 3px;
+	padding: 3px;
+}
+
+.date {
+	white-space: nowrap;
+}
+
+@media screen and (max-width: 600px) {
+	.col-lg, .col-xl, .col-lg-12, .col-xl-12, .col-md-12, .col-lg-4, .col-lg-3, .col-lg-2,
+	.col-lg-1, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11,
+	.col-xl-5, .col-xl-7, .col-xl-4     {
+		padding-right: 0px;
+		padding-left: 0px;
+	}
+
+	..col-lg-5, .col-lg-7 {
+		padding-left: 30px;
+	}
+
+	.card-content {
+		padding: 10px !important;
+		font-size: 1rem;
+	}
+
+	.card table {
+		font-size: 0.9rem;
+	}
+
+	.card {
+		margin-top: 10px;
+		margin-bottom: 5px;
+	}
+
+	#plot-card {
+		display: none;
+	}
+
+
+	.card h2 {
+		margin: 0px;
+		font-size: 1.5rem;
+	}
+
+	.card h2.medium {
+		font-size: 1.5rem;
+		margin-left: 20px;
+	}
+
+	.diff-actions {
+		padding-left: 15px;
+	}
+	.diff-actions a {
+		margin-top: 5px;
+	}
+
+	h1 {
+		font-size: 2rem;
+	}
+
+	.footer {
+		font-size: 0.8rem;
+	}
+
+	html {
+	  position: relative;
+	  min-height: 100%;
+	  font-size: 3.8vw;
+	}
+	
+}
